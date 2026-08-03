@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from pathlib import Path
-
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (
     QFileDialog,
@@ -24,16 +22,19 @@ from PySide6.QtWidgets import (
 
 from cdat.database import Database
 from cdat.project_manager import Project, ProjectManager
+from cdat.source_manager import SourceManager
+from cdat.ui.source_page import SourcePage
 
 
 class MainWindow(QMainWindow):
     def __init__(self, database: Database):
         super().__init__()
         self.manager = ProjectManager(database)
+        self.source_manager = SourceManager(database)
         self.current_project: Project | None = None
         self.setWindowTitle("CDAT Professional")
-        self.resize(1180, 760)
-        self.setMinimumSize(980, 640)
+        self.resize(1240, 800)
+        self.setMinimumSize(1000, 680)
         self._build_menu()
         self._build_ui()
         self._apply_style()
@@ -45,6 +46,9 @@ class MainWindow(QMainWindow):
         file_menu.addAction("Open Selected Project", self.open_selected_project)
         file_menu.addSeparator()
         file_menu.addAction("Quit", self.close)
+
+        project_menu = self.menuBar().addMenu("Project")
+        project_menu.addAction("Sources and Screening", self.show_sources)
 
         help_menu = self.menuBar().addMenu("Help")
         help_menu.addAction("About CDAT Professional", self.show_about)
@@ -92,11 +96,14 @@ class MainWindow(QMainWindow):
         self.pages.addWidget(self._welcome_page())
         self.pages.addWidget(self._new_project_page())
         self.pages.addWidget(self._project_page())
+        self.source_page = SourcePage(self.source_manager)
+        self.source_page.back_requested.connect(self.show_current_project)
+        self.pages.addWidget(self.source_page)
 
         splitter.addWidget(left)
         splitter.addWidget(self.pages)
         splitter.setStretchFactor(0, 1)
-        splitter.setStretchFactor(1, 2)
+        splitter.setStretchFactor(1, 3)
         layout.addWidget(splitter, 1)
 
         self.setCentralWidget(root)
@@ -112,7 +119,7 @@ class MainWindow(QMainWindow):
         heading.setObjectName("pageTitle")
         body = QLabel(
             "Create a new research project or open an existing project to begin building, "
-            "annotating and analysing a discourse corpus."
+            "screening, annotating and analysing a discourse corpus."
         )
         body.setWordWrap(True)
         body.setObjectName("bodyText")
@@ -188,9 +195,29 @@ class MainWindow(QMainWindow):
         layout.addWidget(self.project_title)
         layout.addWidget(self.project_summary)
         layout.addSpacing(18)
+
+        source_panel = QWidget()
+        source_panel.setObjectName("card")
+        source_layout = QVBoxLayout(source_panel)
+        source_heading = QLabel("1. Sources and Screening")
+        source_heading.setObjectName("sectionTitle")
+        source_description = QLabel(
+            "Add article URLs, import flexible CSV manifests, screen candidate documents, "
+            "record inclusion decisions and export a reproducible source manifest."
+        )
+        source_description.setWordWrap(True)
+        source_description.setObjectName("bodyText")
+        source_button = QPushButton("Open Sources and Screening")
+        source_button.setMaximumWidth(250)
+        source_button.clicked.connect(self.show_sources)
+        source_layout.addWidget(source_heading)
+        source_layout.addWidget(source_description)
+        source_layout.addWidget(source_button)
+        layout.addWidget(source_panel)
+
         placeholder = QLabel(
-            "Project management is active. Corpus discovery, screening, annotation, validation, "
-            "analysis and export modules will be added in subsequent milestones."
+            "Corpus collection, annotation, validation, statistical analysis and publication export "
+            "will be added in subsequent milestones."
         )
         placeholder.setWordWrap(True)
         placeholder.setObjectName("panel")
@@ -263,6 +290,20 @@ class MainWindow(QMainWindow):
         self.pages.setCurrentIndex(2)
         self.statusBar().showMessage(f"Opened project: {project.title}", 5000)
 
+    def show_current_project(self) -> None:
+        if self.current_project:
+            self.pages.setCurrentIndex(2)
+        else:
+            self.pages.setCurrentIndex(0)
+
+    def show_sources(self) -> None:
+        if not self.current_project:
+            QMessageBox.information(self, "Open a project", "Open or create a project first.")
+            return
+        self.source_page.load_project(self.current_project)
+        self.pages.setCurrentIndex(3)
+        self.statusBar().showMessage("Sources and screening", 3000)
+
     def delete_selected_project(self) -> None:
         project = self.selected_project()
         if not project:
@@ -274,6 +315,7 @@ class MainWindow(QMainWindow):
         )
         if answer == QMessageBox.Yes:
             self.manager.delete_project(project.id)
+            self.current_project = None
             self.refresh_projects()
             self.pages.setCurrentIndex(0)
             self.statusBar().showMessage("Project record deleted", 5000)
@@ -282,7 +324,7 @@ class MainWindow(QMainWindow):
         QMessageBox.about(
             self,
             "About CDAT Professional",
-            "CDAT Professional v0.1-dev\n\nDeveloped in the Rivers Lab to support transparent, "
+            "CDAT Professional v0.2-dev\n\nDeveloped in the Rivers Lab to support transparent, "
             "reproducible and AI-enhanced computational discourse research.",
         )
 
@@ -293,15 +335,20 @@ class MainWindow(QMainWindow):
             QLabel#appTitle { font-size: 27px; font-weight: 700; }
             QLabel#subtitle { color: #667085; font-size: 14px; }
             QLabel#sectionTitle, QLabel#pageTitle { font-size: 19px; font-weight: 650; }
-            QLabel#bodyText { color: #475467; line-height: 1.4; }
-            QLabel#panel { background: white; border: 1px solid #d8dde5; border-radius: 8px; padding: 18px; }
-            QListWidget, QLineEdit, QTextEdit { background: white; border: 1px solid #cfd6df; border-radius: 6px; padding: 7px; }
+            QLabel#bodyText { color: #475467; }
+            QLabel#panel, QWidget#card { background: white; border: 1px solid #d8dde5; border-radius: 8px; padding: 18px; }
+            QListWidget, QLineEdit, QTextEdit, QTableWidget, QComboBox {
+                background: white; border: 1px solid #cfd6df; border-radius: 6px; padding: 7px;
+            }
             QListWidget::item { padding: 10px; }
-            QListWidget::item:selected { background: #dbeafe; color: #1e3a5f; }
+            QListWidget::item:selected, QTableWidget::item:selected { background: #dbeafe; color: #1e3a5f; }
             QPushButton { background: #2457a6; color: white; border: 0; border-radius: 6px; padding: 9px 15px; font-weight: 600; }
             QPushButton:hover { background: #1d4b90; }
             QPushButton#secondaryButton { background: #e8ebf0; color: #344054; }
             QPushButton#secondaryButton:hover { background: #dce1e8; }
+            QPushButton#dangerButton { background: #b42318; color: white; }
+            QPushButton#dangerButton:hover { background: #912018; }
+            QHeaderView::section { background: #eef1f5; padding: 7px; border: 0; border-bottom: 1px solid #cfd6df; font-weight: 600; }
             QStatusBar { background: white; border-top: 1px solid #d8dde5; }
             """
         )
