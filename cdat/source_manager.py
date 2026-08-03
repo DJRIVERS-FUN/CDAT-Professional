@@ -128,7 +128,11 @@ class SourceManager:
         return added, skipped
 
     def list_sources(self, project_id: int, decision: str | None = None) -> list[SourceRecord]:
-        query = "SELECT * FROM sources WHERE project_id = ?"
+        query = (
+            "SELECT id, project_id, url, source_type, source_name, publication_date, "
+            "notes, discovery_query, screening_decision, exclusion_reason "
+            "FROM sources WHERE project_id = ?"
+        )
         params: list[object] = [project_id]
         if decision:
             query += " AND screening_decision = ?"
