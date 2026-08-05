@@ -1,0 +1,260 @@
+version: hookless-local-v1.0
+
+primary_theme:
+  Risk & Safety:
+    - safety
+    - safe
+    - unsafe
+    - risk
+    - dangerous
+    - danger
+    - failure
+    - fail
+    - blowoff
+    - blow-off
+    - crash
+    - incident
+    - accident
+    - injury
+    - pressure limit
+    - maximum pressure
+  Compatibility:
+    - compatible
+    - compatibility
+    - approved tyre
+    - approved tire
+    - tyre width
+    - tire width
+    - rim width
+    - bead seat
+    - fitment
+    - mounting
+    - install
+    - tyre size
+    - tire size
+  Standards & Regulation:
+    - standard
+    - regulation
+    - regulatory
+    - compliance
+    - compliant
+    - etrto
+    - iso
+    - uci
+    - guideline
+    - rule
+    - specification
+    - tolerance
+  Engineering & Design:
+    - engineering
+    - design
+    - construction
+    - manufacture
+    - manufacturing
+    - carbon
+    - bead wall
+    - bead hook
+    - rim profile
+    - structure
+    - structural
+    - dimension
+    - mould
+    - mold
+  Performance:
+    - performance
+    - aerodynamic
+    - aero
+    - drag
+    - rolling resistance
+    - faster
+    - speed
+    - weight
+    - lighter
+    - efficiency
+    - stiffness
+  User Experience:
+    - i ride
+    - i use
+    - i have
+    - my wheel
+    - my tyre
+    - my tire
+    - experience
+    - personally
+    - for me
+    - ridden
+    - riding
+    - user
+    - rider
+  Responsibility & Liability:
+    - responsibility
+    - responsible
+    - liability
+    - liable
+    - blame
+    - fault
+    - warranty
+    - recall
+    - legal
+    - duty
+  Commercialisation:
+    - price
+    - cost
+    - cheaper
+    - expensive
+    - marketing
+    - market
+    - sell
+    - sales
+    - product launch
+    - consumer
+    - profit
+
+stance:
+  Supportive:
+    - benefit
+    - beneficial
+    - advantage
+    - improved
+    - improvement
+    - reliable
+    - recommend
+    - excellent
+    - better
+    - successful
+    - safe
+    - works well
+  Critical:
+    - unsafe
+    - dangerous
+    - problem
+    - failure
+    - flawed
+    - concern
+    - criticism
+    - unacceptable
+    - avoid
+    - worse
+    - sceptical
+    - skeptical
+  Uncertain/Mixed:
+    - unclear
+    - uncertain
+    - uncertainty
+    - may
+    - might
+    - could
+    - appears
+    - reportedly
+    - question
+    - debate
+    - depends
+    - however
+    - although
+
+authority_invoked:
+  Standards/Regulatory Body:
+    - etrto
+    - iso
+    - uci
+    - regulator
+    - regulation
+    - standard
+    - governing body
+  Technical Expert:
+    - engineer
+    - engineering expert
+    - test laboratory
+    - laboratory
+    - technical expert
+    - mechanic
+    - scientist
+    - researcher
+  Manufacturer:
+    - manufacturer
+    - company says
+    - brand says
+    - zipp
+    - enve
+    - cadex
+    - giant
+    - dt swiss
+    - hunt
+    - reserve
+    - roval
+    - mavic
+    - campagnolo
+  Media:
+    - reported
+    - journalist
+    - media
+    - cyclingnews
+    - bikeradar
+    - road.cc
+    - cycling weekly
+  Rider Community:
+    - rider
+    - cyclist
+    - forum
+    - community
+    - users
+    - owners
+    - commenters
+
+evidence_type:
+  Empirical Test Data:
+    - test data
+    - tested
+    - laboratory
+    - measurement
+    - measured
+    - experiment
+    - pressure test
+    - wind tunnel
+    - rolling resistance
+    - result showed
+    - data show
+  Incident/Case:
+    - incident
+    - crash
+    - failure occurred
+    - blowoff
+    - blow-off
+    - case
+    - race
+    - happened
+  Personal Experience:
+    - i have
+    - i use
+    - i ride
+    - my wheel
+    - my tyre
+    - my tire
+    - in my experience
+    - personally
+    - ridden
+  Formal Rule/Guidance:
+    - standard
+    - regulation
+    - guideline
+    - rule
+    - approved list
+    - maximum pressure
+    - compliance
+    - specification
+  Expert Opinion:
+    - expert says
+    - engineer says
+    - according to
+    - advised
+    - recommends
+    - opinion
+    - believes
+  Commercial Claim:
+    - claims
+    - marketed
+    - marketing
+    - product page
+    - manufacturer says
+    - designed to
+    - promises
