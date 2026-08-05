@@ -5,29 +5,15 @@ project:
   minimum_words: 250
   maximum_documents_per_domain: 25
   near_duplicate_threshold: 0.92
+  search_results_per_query: 30
   output_directory: outputs/hookless_500
 
 query_families:
-  - '"hookless rim"'
-  - '"hookless rims" bicycle'
-  - '"hookless wheel" cycling'
-  - 'hookless rim safety'
-  - 'hookless tyre safety'
-  - 'hookless tire safety'
-  - 'hookless tyre compatibility'
-  - 'hookless tire compatibility'
-  - 'hookless maximum pressure'
-  - 'hookless blowoff'
-  - 'hookless incident cycling'
-  - 'hookless UCI investigation'
-  - 'hookless ETRTO'
-  - 'hookless ISO standard bicycle'
-  - 'hookless rim engineering'
-  - 'hookless rim tolerance'
-  - 'hookless aerodynamic performance'
-  - 'hookless rim testing'
-  - 'hookless rider experience'
-  - 'hookless wheels problems'
+  - 'hookless rim OR hookless rims'
+  - 'hookless tyre OR hookless tire OR hookless wheel'
+  - 'hookless safety OR compatibility OR pressure OR blowoff'
+  - 'hookless testing OR engineering OR standard OR regulation'
+  - 'hookless cycling experience OR incident OR UCI'
 
 communities:
   Manufacturer:
