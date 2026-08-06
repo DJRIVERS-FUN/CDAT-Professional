@@ -1,0 +1,117 @@
+project:
+  name: Hookless Bicycle Rim Technology Corpus
+  target_documents: 500
+  language: en
+  minimum_words: 250
+  maximum_documents_per_domain: 25
+  near_duplicate_threshold: 0.92
+  search_results_per_query: 30
+  output_directory: outputs/hookless_500
+
+query_families:
+  - 'hookless rim OR hookless rims'
+  - 'hookless tyre OR hookless tire OR hookless wheel'
+  - 'hookless safety OR compatibility OR pressure OR blowoff'
+  - 'hookless testing OR engineering OR standard OR regulation'
+  - 'hookless cycling experience OR incident OR UCI'
+
+communities:
+  Manufacturer:
+    quota: 100
+    domains:
+      - zipp.com
+      - enve.com
+      - cadex-cycling.com
+      - reservewheels.com
+      - dtswiss.com
+      - huntbikewheels.com
+      - rovalcomponents.com
+      - giant-bicycles.com
+      - trekbikes.com
+      - shimano.com
+      - mavic.com
+      - fulcrumwheels.com
+      - campagnolo.com
+      - visiontechusa.com
+      - princetoncarbon.com
+
+  Media:
+    quota: 150
+    domains:
+      - cyclingnews.com
+      - bikeradar.com
+      - road.cc
+      - cyclingweekly.com
+      - velo.outsideonline.com
+      - escapecollective.com
+      - cyclingtips.com
+      - granfondo-cycling.com
+      - roadbikeaction.com
+      - bicyclerollingresistance.com
+      - theproscloset.com
+      - cyclingmagazine.ca
+      - pezcyclingnews.com
+      - bikerumor.com
+      - cyclingabout.com
+
+  Forum:
+    quota: 125
+    domains:
+      - weightweenies.starbike.com
+      - reddit.com
+      - bikeforums.net
+      - roadbikereview.com
+      - singletrackworld.com
+      - trainerroad.com
+      - cyclingforums.com
+      - slowtwitch.com
+      - mtbr.com
+
+  Technical / Engineering:
+    quota: 75
+    domains:
+      - bicyclerollingresistance.com
+      - wheelworks.co.nz
+      - hambini.com
+      - aerocoach.co.uk
+      - zerofrictioncycling.com.au
+      - silca.cc
+      - lightbicycle.com
+      - novemberbicycles.com
+      - parcours.cc
+      - swissside.com
+      - peak-torque.com
+
+  Standards:
+    quota: 50
+    domains:
+      - uci.org
+      - etrto.org
+      - iso.org
+      - bicyclestandards.com
+      - britishcycling.org.uk
+      - cyclinguk.org
+      - usacycling.org
+      - auscycling.org.au
+      - cyclingcanada.ca
+      - cyclingnewzealand.nz
+      - bikereurope.com
+
+screening:
+  required_terms:
+    - hookless
+  contextual_terms:
+    - rim
+    - wheel
+    - tyre
+    - tire
+    - tubeless
+  excluded_url_fragments:
+    - /cart
+    - /checkout
+    - /login
+    - /account
+    - /privacy
+    - /terms
+    - /tag/
+    - /category/
